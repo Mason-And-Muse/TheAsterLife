@@ -200,19 +200,6 @@
     addPath('M ' + ax + ' ' + ay + ' C ' + ax + ' ' + (ay + dy * 0.5) +
             ', ' + bx + ' ' + (by - dy * 0.5) + ', ' + bx + ' ' + by);
   }
-  function spineLink(aId, bId, tr) {
-    var a = registry.get(aId), b = registry.get(bId);
-    if (!a || !b) return;
-    var ar = rel(a.getBoundingClientRect(), tr), br = rel(b.getBoundingClientRect(), tr);
-    if (br.top - ar.bottom < 1) return;
-    // Out of the parent's left side -> into the child's left side, straight down
-    // then curving. The root is a capsule, so it leaves the very left of its flat
-    // bottom (just past the left curve) rather than its rounded side.
-    var ax = (aId === ROOT.id) ? ar.left + ar.height / 2 : ar.left;
-    var ay = (aId === ROOT.id) ? ar.bottom : ar.bottom - 8;
-    curve(ax, ay, br.left, br.top + 8);
-  }
-
   function drawLines() {
     var tr = treeEl.getBoundingClientRect();
     linesEl.setAttribute('width', treeEl.clientWidth);
@@ -221,54 +208,96 @@
     if (isNarrow()) drawLinesNarrow(tr); else drawLinesWide(tr);
   }
 
-  // Desktop: a curved fan from each parent down to its children.
+  // Desktop: the picked spine runs straight down the center (each node's
+  // bottom-center into the next node's top-center) and the current parent fans
+  // curves out of its bottom-center into each child's top-center. Every line
+  // meets a node at its horizontal center; all curved, no right angles.
   function drawLinesWide(tr) {
-    for (var k = 1; k < curSpineIds.length; k++) spineLink(curSpineIds[k - 1], curSpineIds[k], tr);
+    for (var i = 1; i < curSpineIds.length; i++) {
+      var a = registry.get(curSpineIds[i - 1]), b = registry.get(curSpineIds[i]);
+      if (!a || !b) continue;
+      var ar = rel(a.getBoundingClientRect(), tr), br = rel(b.getBoundingClientRect(), tr);
+      if (br.top - ar.bottom < 1) continue;
+      curve(ar.cx, ar.bottom, br.cx, br.top);
+    }
     if (!curParentId) return;
     var parent = registry.get(curParentId);
     if (!parent) return;
     var pr = rel(parent.getBoundingClientRect(), tr);
     curFanIds.forEach(function (fid) {
-      var b = registry.get(fid);
-      if (!b) return;
-      var br = rel(b.getBoundingClientRect(), tr);
-      if (br.top - pr.bottom < 1) return;
-      curve(pr.cx, pr.bottom, br.cx, br.top);
+      var c = registry.get(fid);
+      if (!c) return;
+      var cr = rel(c.getBoundingClientRect(), tr);
+      if (cr.top - pr.bottom < 1) return;
+      curve(pr.cx, pr.bottom, cr.cx, cr.top);
     });
   }
 
-  // Mobile: the choices branch off a rail that curves out of the parent and
-  // runs down the left edge, so siblings clearly read as siblings.
+  // Mobile: the picked path is a CHAIN - each node links straight to its one
+  // picked child, entering the child at its left side (vertically centered), so
+  // the parent/child relationship reads top to bottom. Only the LAST picked
+  // node fans out to its children (the cards), which sit at one level off a
+  // short rail (rounded elbows, no right angles). The root is the exception:
+  // its line leaves the left of its flat bottom (it is a capsule).
   function drawLinesNarrow(tr) {
-    for (var k = 1; k < curSpineIds.length; k++) spineLink(curSpineIds[k - 1], curSpineIds[k], tr);
+    var spine = curSpineIds.map(function (id) {
+      var el = registry.get(id);
+      return el ? { id: id, r: rel(el.getBoundingClientRect(), tr) } : null;
+    }).filter(Boolean);
+
+    // 1. Chain: each picked node down to its single picked child.
+    for (var i = 1; i < spine.length; i++) {
+      var pr = spine[i - 1].r, cr = spine[i].r, cx = cr.left, cy = cr.cy;
+      if (cy - pr.cy < 1) continue;
+      if (spine[i - 1].id === ROOT.id) {
+        // Root: out of the left of its flat bottom, down into the child's left.
+        var rx = pr.left + pr.height / 2, ry = pr.bottom, m = (cy - ry) * 0.5;
+        addPath('M ' + rx + ' ' + ry +
+                ' C ' + rx + ' ' + (ry + m) + ', ' + (cx - 26) + ' ' + cy +
+                ', ' + cx + ' ' + cy);
+      } else {
+        // A "(" bowing left, the parent's left-center into the child's.
+        var L = pr.left, bow = 30;
+        addPath('M ' + L + ' ' + pr.cy +
+                ' C ' + (L - bow) + ' ' + pr.cy + ', ' + (L - bow) + ' ' + cy +
+                ', ' + cx + ' ' + cy);
+      }
+    }
+
+    // 2. Fan: the last picked node out to its children (cards) at one level.
     if (!curFanIds.length || !curParentId) return;
     var parent = registry.get(curParentId);
     if (!parent) return;
-    var pr = rel(parent.getBoundingClientRect(), tr);
-    var rects = curFanIds.map(function (id) {
+    var ppr = rel(parent.getBoundingClientRect(), tr);
+    var kids = curFanIds.map(function (id) {
       var el = registry.get(id);
       return el ? rel(el.getBoundingClientRect(), tr) : null;
     }).filter(Boolean);
-    if (!rects.length) return;
+    if (!kids.length) return;
 
-    var minLeft = Math.min.apply(null, rects.map(function (r) { return r.left; }));
+    var R = 18, h = R * 0.5523;                   // elbow radius + cubic handle
+    var minLeft = Math.min.apply(null, kids.map(function (r) { return r.left; }));
     var railX = Math.max(8, minLeft - 20);
-    var lastY = rects[rects.length - 1].cy;
-
-    // Origin: the parent's left side — except the root (a capsule), which leaves
-    // the very left of its flat bottom (just past the left curve). Straight DOWN
-    // out of the parent, then curve over to the rail and run down the left edge.
-    var sx = (curParentId === ROOT.id) ? pr.left + pr.height / 2 : pr.left;
-    var sy = (curParentId === ROOT.id) ? pr.bottom : pr.bottom - 8;
-    var joinY = pr.bottom + 20, mid = (joinY - sy) * 0.5;
-    addPath('M ' + sx + ' ' + sy +
-            ' C ' + sx + ' ' + (sy + mid) + ', ' + railX + ' ' + (joinY - mid) +
-            ', ' + railX + ' ' + joinY +
-            ' L ' + railX + ' ' + lastY);
-    // Elbow from the rail into each child's LEFT SIDE.
-    rects.forEach(function (r) {
-      addPath('M ' + railX + ' ' + r.cy +
-              ' C ' + (railX + 12) + ' ' + r.cy + ', ' + (r.left - 12) + ' ' + r.cy +
+    var topY = kids[0].cy - R, botY = kids[kids.length - 1].cy - R;
+    if (curParentId === ROOT.id) {
+      // Root: out of the left of its flat bottom, straight down into the rail.
+      var rsx = ppr.left + ppr.height / 2, rsy = ppr.bottom, rjm = (topY - rsy) * 0.5;
+      addPath('M ' + rsx + ' ' + rsy +
+              ' C ' + rsx + ' ' + (rsy + rjm) + ', ' + railX + ' ' + (topY - rjm) +
+              ', ' + railX + ' ' + topY);
+    } else {
+      // Other nodes hand off from their LEFT-CENTER, starting horizontal then
+      // curving down into the rail - the same exit as a spine link to its
+      // child, so the last picked node matches the rest of the chain.
+      var pjm = (topY - ppr.cy) * 0.5;
+      addPath('M ' + ppr.left + ' ' + ppr.cy +
+              ' C ' + railX + ' ' + ppr.cy + ', ' + railX + ' ' + (topY - pjm) +
+              ', ' + railX + ' ' + topY);
+    }
+    if (botY > topY) addPath('M ' + railX + ' ' + topY + ' L ' + railX + ' ' + botY);
+    kids.forEach(function (r) {
+      addPath('M ' + railX + ' ' + (r.cy - R) +
+              ' C ' + railX + ' ' + (r.cy - R + h) + ', ' + (r.left - h) + ' ' + r.cy +
               ', ' + r.left + ' ' + r.cy);
     });
   }
@@ -420,6 +449,16 @@
   window.addEventListener('resize', function () {
     if (resizeRaf) cancelAnimationFrame(resizeRaf);
     resizeRaf = requestAnimationFrame(drawLines);
+  });
+
+  // Redraw once any node settles, so the final lines always match the rested
+  // layout even when an animation is interrupted (e.g. rapid taps through the
+  // tree leave the line layer mid-flight otherwise).
+  var settleRaf = 0;
+  treeEl.addEventListener('transitionend', function (e) {
+    if (e.propertyName !== 'transform') return;
+    if (settleRaf) cancelAnimationFrame(settleRaf);
+    settleRaf = requestAnimationFrame(drawLines);
   });
 
   // ---------- init ----------
