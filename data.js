@@ -12,66 +12,66 @@
 
   var CONTENT = [
     {
-      category: 'Go Fast',
+      category: 'Drive Fast',
       subs: [
         {
           name: 'Track',
           cards: [
-            { title: 'Skip Barber Racing School', desc: 'GT or formula racing school in provided race cars.', loc: 'CT, NJ, TX, CA, GA, FL, VA', url: 'https://www.skipbarber.com/programs/', img: 'photos/go-fast/skip-barber.png' },
-            { title: 'NASCAR Racing Experience', desc: 'Drive a NASCAR stock car solo with a radio spotter at speedways nationwide.', loc: 'Multiple US', url: 'https://nascarracingexperience.com/', img: 'photos/go-fast/nascar.jpeg' },
-            { title: 'Exotics Racing', desc: 'Choose from 40+ supercars with 1-on-1 coaching on a dedicated track.', loc: 'NV', url: 'https://exoticsracing.com/las-vegas-supercar-driving-experience/', img: 'photos/go-fast/exotics-racing.jpg' },
-            { title: 'MSF Basic RiderCourse', desc: 'Structured intro motorcycle course with bikes and helmets provided.', loc: 'Multiple US', url: 'https://msf-usa.org/start-your-ride/basic-ridercourse', img: 'photos/go-fast/msf.jpg' }
+            { title: 'Skip Barber Racing School', desc: 'GT or formula racing school in provided race cars.', loc: 'CT, NJ, TX, CA, GA, FL, VA', url: 'https://www.skipbarber.com/programs/', img: 'photos/drive-fast/skip-barber.png' },
+            { title: 'NASCAR Racing Experience', desc: 'Drive a NASCAR stock car solo with a radio spotter at speedways nationwide.', loc: 'Multiple US', url: 'https://nascarracingexperience.com/', img: 'photos/drive-fast/nascar.jpeg' },
+            { title: 'Exotics Racing', desc: 'Choose from 40+ supercars with 1-on-1 coaching on a dedicated track.', loc: 'NV', url: 'https://exoticsracing.com/las-vegas-supercar-driving-experience/', img: 'photos/drive-fast/exotics-racing.jpg' },
+            { title: 'MSF Basic RiderCourse', desc: 'Structured intro motorcycle course with bikes and helmets provided.', loc: 'Multiple US', url: 'https://msf-usa.org/start-your-ride/basic-ridercourse', img: 'photos/drive-fast/msf.jpg' }
           ]
         },
         {
           name: 'Dirt',
           cards: [
-            { title: 'DirtFish Rally School', desc: 'Loose-surface rally driving in school-provided cars over 1-3 days.', loc: 'WA', url: 'https://drive.dirtfish.com/drive/drive-now/', img: 'photos/go-fast/dirt-fish.jpg' },
-            { title: 'NORA - 2-Day Off-Road Boot Camp', desc: 'Two-day off-road course including vehicle recovery and a night drive.', loc: 'NY', url: 'https://nyoffroaddriving.com/two-day-off-road-boot-camp/', img: 'photos/go-fast/nora.jpg' },
-            { title: 'Ford Bronco Off-Roadeo', desc: 'Expert-guided off-road half-day session in a provided Bronco.', loc: 'NV, UT', url: 'https://broncodrives.com/', img: 'photos/go-fast/bronco.webp' }
+            { title: 'DirtFish Rally School', desc: 'Loose-surface rally driving in school-provided cars over 1-3 days.', loc: 'WA', url: 'https://drive.dirtfish.com/drive/drive-now/', img: 'photos/drive-fast/dirt-fish.jpg' },
+            { title: 'NORA - 2-Day Off-Road Boot Camp', desc: 'Two-day off-road course including vehicle recovery and a night drive.', loc: 'NY', url: 'https://nyoffroaddriving.com/two-day-off-road-boot-camp/', img: 'photos/drive-fast/nora.jpg' },
+            { title: 'Ford Bronco Off-Roadeo', desc: 'Expert-guided off-road half-day session in a provided Bronco.', loc: 'NV, UT', url: 'https://broncodrives.com/', img: 'photos/drive-fast/bronco.webp' }
           ]
         },
         {
           name: 'Kart',
           cards: [
-            { title: 'K1 Speed', desc: 'Indoor electric arrive-and-drive karting with timed sessions & "Glo-Karting".', loc: 'Multiple US', url: 'https://www.k1speed.com', img: 'photos/go-fast/k1-speed.jpeg' },
-            { title: 'K1 Circuit', desc: 'Higher-performance outdoor gas sprint karts with timed races.', loc: 'Multiple US', url: 'https://www.k1circuit.com', img: 'photos/go-fast/k1-circuit.jpeg' }
+            { title: 'K1 Speed', desc: 'Indoor electric arrive-and-drive karting with timed sessions & "Glo-Karting".', loc: 'Multiple US', url: 'https://www.k1speed.com', img: 'photos/drive-fast/k1-speed.jpeg' },
+            { title: 'K1 Circuit', desc: 'Higher-performance outdoor gas sprint karts with timed races.', loc: 'Multiple US', url: 'https://www.k1circuit.com', img: 'photos/drive-fast/k1-circuit.jpeg' }
           ]
         }
       ]
     },
     {
-      category: 'Shoot Stuff',
+      category: 'Shoot Shit',
       subs: [
         {
           name: 'Lethal',
           cards: [
-            { title: 'SIG Sauer Academy - Handgun 101', desc: 'One-day new-shooter pistol orientation with guns and ammo included.', loc: 'NH', url: 'https://sigsaueracademy.com/courses/handgun-101-handgun-orientation' },
-            { title: 'SIG Sauer Academy - PSR 101', desc: 'Three-day entry-level precision scoped-rifle course to 1,000 yards.', loc: 'NH', url: 'https://sigsaueracademy.com/courses/psr-101-precision-scoped-rifle' },
-            { title: 'Orvis Sandanona', desc: 'Sporting-clays and wingshooting school at the oldest US shooting preserve.', loc: 'NY', url: 'https://www.orvis.com/sandanona-shooting-grounds.html' },
-            { title: 'The Range 702', desc: 'Themed full-auto shooting experiences.', loc: 'NV', url: 'https://www.therange702.com/shooting-experiences/' }
+            { title: 'SIG Sauer Academy - Handgun 101', desc: 'One-day new-shooter pistol orientation with guns and ammo included.', loc: 'NH', url: 'https://sigsaueracademy.com/courses/handgun-101-handgun-orientation', img: 'photos/shoot-shit/sig-handgun.webp' },
+            { title: 'SIG Sauer Academy - PSR 101', desc: 'Three-day entry-level precision scoped-rifle course to 1,000 yards.', loc: 'NH', url: 'https://sigsaueracademy.com/courses/psr-101-precision-scoped-rifle', img: 'photos/shoot-shit/sig-rifle.webp' },
+            { title: 'Orvis Sandanona', desc: 'Sporting-clays and wingshooting school at the oldest US shooting preserve.', loc: 'NY', url: 'https://www.orvis.com/sandanona-shooting-grounds.html', img: 'photos/shoot-shit/orvis.jpg' },
+            { title: 'The Range 702', desc: 'Themed full-auto shooting experiences.', loc: 'NV', url: 'https://www.therange702.com/shooting-experiences/', img: 'photos/shoot-shit/702.jpg' }
           ]
         },
         {
-          name: 'Less Lethal',
+          name: 'Mostly Harmless',
           cards: [
-            { title: 'Skirmish USA', desc: 'World\'s largest paintball park (700+ acres, 50 fields).', loc: 'PA', url: 'https://www.skirmish.com/' },
-            { title: 'Pev\'s Paintball - Airsoft', desc: 'Outdoor walk-on and private airsoft with rental gear.', loc: 'VA', url: 'https://www.pevs.com/airsoft-public-play' },
-            { title: 'iCOMBAT', desc: 'Authentic-feel tactical laser tag with realistic equipment.', loc: 'Multiple US', url: 'https://icombatwaukesha.com/' }
+            { title: 'Skirmish USA', desc: 'World\'s largest paintball park (700+ acres, 50 fields).', loc: 'PA', url: 'https://www.skirmish.com/', img: 'photos/shoot-shit/skirmish.jpg' },
+            { title: 'Pev\'s Paintball - Airsoft', desc: 'Outdoor walk-on and private airsoft with rental gear.', loc: 'VA', url: 'https://www.pevs.com/airsoft-public-play', img: 'photos/shoot-shit/pev.webp' },
+            { title: 'iCOMBAT', desc: 'Authentic-feel tactical laser tag with realistic equipment.', loc: 'Multiple US', url: 'https://icombatwaukesha.com/', img: 'photos/shoot-shit/icombat.jpeg' }
           ]
         },
         {
           name: 'Primitive',
           cards: [
-            { title: 'World Axe Throwing League', desc: 'Coached axe/knife throwing at affiliated venues.', loc: 'Multiple US', url: 'https://worldaxethrowingleague.com/' },
-            { title: 'Bad Axe Throwing', desc: 'Largest urban axe-throwing chain with coaches.', loc: 'Multiple US', url: 'https://badaxethrowing.com/' },
-            { title: 'Mounted Archers of the Potomac', desc: 'Horseback-archery club with intro clinics.', loc: 'NE', url: 'https://www.mountedarchersofthepotomac.com/mountedarchersofthepotomac/' }
+            { title: 'World Axe Throwing League', desc: 'Coached axe/knife throwing at affiliated venues.', loc: 'Multiple US', url: 'https://worldaxethrowingleague.com/', img: 'photos/shoot-shit/worldaxe.jpg' },
+            { title: 'Bad Axe Throwing', desc: 'Largest urban axe-throwing chain with coaches.', loc: 'Multiple US', url: 'https://badaxethrowing.com/', img: 'photos/shoot-shit/badaxe.jpg' },
+            { title: 'Mounted Archers of the Potomac', desc: 'Horseback-archery club with intro clinics.', loc: 'NE', url: 'https://www.mountedarchersofthepotomac.com/mountedarchersofthepotomac/', img: 'photos/shoot-shit/horsearchery.jpeg' }
           ]
         }
       ]
     },
     {
-      category: 'Adventure',
+      category: 'Don\'t Die',
       subs: [
         {
           name: 'Land',
@@ -101,7 +101,7 @@
       ]
     },
     {
-      category: 'Experience',
+      category: 'Less Lethal',
       subs: [
         {
           name: 'Challenge',
