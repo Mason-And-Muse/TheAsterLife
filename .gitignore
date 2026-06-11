@@ -1,0 +1,33 @@
+# Claude Code — local tooling & config (dev server, launch config, settings)
+.claude/
+
+# macOS
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Editors / IDEs
+.vscode/
+.idea/
+.obsidian/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Python (local dev server only)
+__pycache__/
+*.py[cod]
+
+# Logs & temp
+*.log
+*.tmp

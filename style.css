@@ -1,0 +1,270 @@
+/* ============================================================
+   The Aster Life — styles
+   Dark base, purple ("purple period") accent. Buildless, no deps.
+   ============================================================ */
+
+:root {
+  --bg: #0f1115;
+  --text: #e8e8ea;
+  --muted: rgba(232, 232, 234, 0.65);
+  --accent: #8b5cf6;
+
+  /* Motion — gentle */
+  --dur: 300ms;       /* node glide / enter / exit */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.25rem 6rem;
+}
+
+/* ---------- Welcome (always visible) ---------- */
+
+#welcome {
+  text-align: center;
+  max-width: 48ch;
+  margin: 2.5rem auto 0.5rem;
+}
+h1 {
+  margin: 0 0 1rem;
+  font-weight: 600;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+.dot { color: var(--accent); }
+.welcome-copy { color: var(--muted); line-height: 1.6; }
+.welcome-copy p { margin: 0 0 0.6rem; }
+.welcome-copy strong { color: var(--text); }
+
+/* ---------- Tree canvas ---------- */
+
+#tree {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+#connectors {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+#connectors path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+#tree-flow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 7vh, 4rem);
+  width: 100%;
+  padding-top: 1.5rem;
+}
+
+/* ---------- Nodes ---------- */
+/* Transforms are driven by JS (FLIP); hover effects deliberately avoid
+   transform so they don't clobber an in-flight animation. */
+
+.tree-node { transform-origin: center; }
+
+.tree-node.option {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  cursor: pointer;
+  background: linear-gradient(160deg, rgba(139, 92, 246, 0.20), rgba(139, 92, 246, 0.06));
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 14px;
+  padding: 0.9rem 1.25rem;
+  min-width: 9rem;
+  text-align: center;
+  transition: border-color 140ms var(--ease), box-shadow 140ms var(--ease),
+              background 140ms var(--ease);
+}
+.tree-node.option:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.28);
+}
+.tree-node.option.selected {
+  background: linear-gradient(160deg, rgba(139, 92, 246, 0.5), rgba(139, 92, 246, 0.22));
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+}
+.tree-node:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Root ("Choose your own adventure") node */
+.tree-node.root {
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 0.85rem 1.6rem;
+  max-width: min(90vw, 24rem);
+  box-shadow: 0 6px 24px rgba(139, 92, 246, 0.35);
+  transition: box-shadow 140ms var(--ease), filter 140ms var(--ease);
+}
+.tree-node.root:hover { box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5); }
+.tree-node.root.selected { filter: brightness(1.06); }
+
+/* ---------- Fan (a parent's children) ---------- */
+
+.fan {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: min(980px, 94vw);
+}
+.fan.fan-cards { gap: 1.1rem; }
+
+/* ---------- Experience cards (leaves) ---------- */
+
+.card {
+  position: relative;
+  width: 230px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+/* The photo fills the card and tiles downward if the card is taller than it. */
+.card-bg {
+  position: absolute;
+  inset: 0;
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+}
+/* The overlay sits in normal flow, so the card's height grows to fit all the
+   details. It's transparent until the card is revealed (hover / tap). */
+.card-overlay {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(10, 10, 14, 0.95), rgba(10, 10, 14, 0.82));
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+.card-name { font-weight: 600; font-size: 1.05rem; }
+.card-blurb { font-size: 0.85rem; color: var(--muted); line-height: 1.45; }
+.card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+.card-loc { display: inline-flex; align-items: center; gap: 0.35rem; }
+.card-loc svg { height: 14px; width: auto; fill: var(--accent); opacity: 0.9; }
+
+.visit {
+  align-self: flex-start;
+  margin-top: 0.55rem;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  transition: transform 120ms var(--ease), box-shadow 120ms;
+}
+.visit:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(139, 92, 246, 0.4); }
+.visit:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+/* Reveal details: hover on pointer devices, tap (.revealed) on touch */
+@media (hover: hover) {
+  .card:hover .card-overlay { opacity: 1; }
+}
+.card.revealed .card-overlay { opacity: 1; }
+
+/* ---------- Mobile — vertical, left-rail tree ---------- */
+/* Choices can't fan sideways on a phone, so they stack and branch off a rail
+   that runs down the left edge (lines drawn in app.js). Buttons sit to the
+   right of that rail, so siblings read as siblings. */
+@media (max-width: 640px) {
+  #welcome { margin-top: 1.5rem; }
+
+  /* The column matches the hero button's width and is centered, so every
+     button's right edge lines up with the hero's right edge. */
+  #tree-flow {
+    align-items: stretch;
+    max-width: min(90vw, 24rem);
+    margin-inline: auto;
+    gap: 1.1rem;
+    padding-left: 0;
+  }
+
+  /* Hero fills the column so it's the right-edge reference. */
+  .tree-node.root { align-self: stretch; max-width: none; }
+
+  /* Wide buttons: right edge aligns with the hero, left indented for the rail. */
+  .tree-node.option {
+    align-self: stretch;
+    margin-left: 56px;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .fan {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    width: 100%;
+    max-width: none;
+  }
+  .fan .tree-node.option { margin-left: 56px; }
+
+  /* Cards: one per row, filling the column width (minus the rail indent). */
+  .fan.fan-cards { display: block; }
+  .fan-cards .card {
+    display: block;
+    width: auto;
+    margin: 0 0 1rem 56px;
+  }
+  .fan-cards .card:last-child { margin-bottom: 0; }
+}
+
+/* ---------- Accessibility ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 1ms !important; }
+}
