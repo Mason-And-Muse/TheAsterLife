@@ -125,7 +125,13 @@
     el.className = 'tree-node card';
     var bg = document.createElement('div');
     bg.className = 'card-bg';
-    bg.style.backgroundImage = card.image ? 'url("' + card.image + '")' : cardGradient(card);
+    var grad = cardGradient(card);
+    if (card.image) {
+      bg.classList.add('has-photo');
+      bg.style.backgroundImage = 'url("' + card.image + '"), ' + grad;  // photo over gradient base
+    } else {
+      bg.style.backgroundImage = grad;
+    }
     el.appendChild(bg);
 
     var ov = document.createElement('div');
@@ -136,6 +142,9 @@
       '<div class="card-meta">' +
         '<span class="card-loc">' + pinGlyph() + esc(card.location) + '</span>' +
       '</div>';
+    var actions = document.createElement('div');
+    actions.className = 'card-actions';
+
     var visit = document.createElement('a');
     visit.className = 'visit';
     visit.textContent = 'Visit';
@@ -143,7 +152,12 @@
     visit.target = '_blank';
     visit.rel = 'noopener';
     visit.addEventListener('click', function (e) { e.stopPropagation(); });
-    ov.appendChild(visit);
+    actions.appendChild(visit);
+
+    // Favorite toggle - sits at the row's right, in line with Visit.
+    if (window.Favorites) actions.appendChild(window.Favorites.makeHeart(card));
+
+    ov.appendChild(actions);
     el.appendChild(ov);
 
     if (!hoverCapable()) {

@@ -17,25 +17,25 @@
         {
           name: 'Track',
           cards: [
-            { title: 'Skip Barber Racing School', desc: 'GT or formula racing school in provided race cars.', loc: 'CT, NJ, TX, CA, GA, FL, VA', url: 'https://www.skipbarber.com/programs/' },
-            { title: 'NASCAR Racing Experience', desc: 'Drive a NASCAR stock car solo with a radio spotter at speedways nationwide.', loc: 'Multiple US', url: 'https://nascarracingexperience.com/' },
-            { title: 'Exotics Racing', desc: 'Choose from 40+ supercars with 1-on-1 coaching on a dedicated track.', loc: 'NV', url: 'https://exoticsracing.com/las-vegas-supercar-driving-experience/' },
-            { title: 'MSF Basic RiderCourse', desc: 'Structured intro motorcycle course with bikes and helmets provided.', loc: 'Multiple US', url: 'https://msf-usa.org/start-your-ride/basic-ridercourse' }
+            { title: 'Skip Barber Racing School', desc: 'GT or formula racing school in provided race cars.', loc: 'CT, NJ, TX, CA, GA, FL, VA', url: 'https://www.skipbarber.com/programs/', img: 'photos/go-fast/skip-barber.png' },
+            { title: 'NASCAR Racing Experience', desc: 'Drive a NASCAR stock car solo with a radio spotter at speedways nationwide.', loc: 'Multiple US', url: 'https://nascarracingexperience.com/', img: 'photos/go-fast/nascar.jpeg' },
+            { title: 'Exotics Racing', desc: 'Choose from 40+ supercars with 1-on-1 coaching on a dedicated track.', loc: 'NV', url: 'https://exoticsracing.com/las-vegas-supercar-driving-experience/', img: 'photos/go-fast/exotics-racing.jpg' },
+            { title: 'MSF Basic RiderCourse', desc: 'Structured intro motorcycle course with bikes and helmets provided.', loc: 'Multiple US', url: 'https://msf-usa.org/start-your-ride/basic-ridercourse', img: 'photos/go-fast/msf.jpg' }
           ]
         },
         {
           name: 'Dirt',
           cards: [
-            { title: 'DirtFish Rally School', desc: 'Loose-surface rally driving in school-provided cars over 1-3 days.', loc: 'WA', url: 'https://drive.dirtfish.com/drive/drive-now/' },
-            { title: 'NORA - 2-Day Off-Road Boot Camp', desc: 'Two-day off-road course including vehicle recovery and a night drive.', loc: 'NY', url: 'https://nyoffroaddriving.com/two-day-off-road-boot-camp/' },
-            { title: 'Ford Bronco Off-Roadeo', desc: 'Expert-guided off-road half-day session in a provided Bronco.', loc: 'NV, UT', url: 'https://broncodrives.com/' }
+            { title: 'DirtFish Rally School', desc: 'Loose-surface rally driving in school-provided cars over 1-3 days.', loc: 'WA', url: 'https://drive.dirtfish.com/drive/drive-now/', img: 'photos/go-fast/dirt-fish.jpg' },
+            { title: 'NORA - 2-Day Off-Road Boot Camp', desc: 'Two-day off-road course including vehicle recovery and a night drive.', loc: 'NY', url: 'https://nyoffroaddriving.com/two-day-off-road-boot-camp/', img: 'photos/go-fast/nora.jpg' },
+            { title: 'Ford Bronco Off-Roadeo', desc: 'Expert-guided off-road half-day session in a provided Bronco.', loc: 'NV, UT', url: 'https://broncodrives.com/', img: 'photos/go-fast/bronco.webp' }
           ]
         },
         {
           name: 'Kart',
           cards: [
-            { title: 'K1 Speed', desc: 'Indoor electric arrive-and-drive karting with timed sessions & "Glo-Karting".', loc: 'Multiple US', url: 'https://www.k1speed.com' },
-            { title: 'K1 Circuit', desc: 'Higher-performance outdoor gas sprint karts with timed races.', loc: 'Multiple US', url: 'https://www.k1circuit.com' }
+            { title: 'K1 Speed', desc: 'Indoor electric arrive-and-drive karting with timed sessions & "Glo-Karting".', loc: 'Multiple US', url: 'https://www.k1speed.com', img: 'photos/go-fast/k1-speed.jpeg' },
+            { title: 'K1 Circuit', desc: 'Higher-performance outdoor gas sprint karts with timed races.', loc: 'Multiple US', url: 'https://www.k1circuit.com', img: 'photos/go-fast/k1-circuit.jpeg' }
           ]
         }
       ]
@@ -150,8 +150,8 @@
               name: card.title,
               blurb: card.desc,
               location: card.loc,
-              url: card.url
-              // image: '...'  - add when screenshots arrive
+              url: card.url,
+              image: card.img        // undefined -> gradient placeholder
             };
           })
         };
