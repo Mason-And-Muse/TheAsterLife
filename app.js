@@ -177,8 +177,9 @@
   // ---------- interactions ----------
   function onOptionClick(node) {
     var idx = trail.findIndex(function (n) { return n.id === node.id; });
-    if (idx >= 0) trail = trail.slice(0, idx);   // tap a live spine node -> un-pick it
-    else trail = trail.concat([node]);           // tap a fan child -> pick it
+    if (idx < 0) trail = trail.concat([node]);          // a fan child -> pick it
+    else if (idx === trail.length - 1) trail = trail.slice(0, idx);  // the deepest picked node -> un-pick it (collapse)
+    else trail = trail.slice(0, idx + 1);               // an ancestor in the spine -> drill to it, showing its children
     update();
   }
 
