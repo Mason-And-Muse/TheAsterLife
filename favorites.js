@@ -162,7 +162,7 @@
   function renderPanel() {
     if (!panelList) return;
     if (!items.length) {
-      panelList.innerHTML = '<p class="fav-empty">No favorites yet. Tap the heart on a card to save it here.</p>';
+      panelList.innerHTML = '<p class="fav-empty">What\'s the point of a favorites list if you have no favorites?!</p>';
       return;
     }
     var html = '';
