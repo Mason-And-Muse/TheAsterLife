@@ -162,7 +162,14 @@
     el.appendChild(ov);
 
     if (!hoverCapable()) {
-      el.addEventListener('click', function () { el.classList.toggle('revealed'); });
+      // Touch: tapping a card reveals just it - collapse any other open card.
+      el.addEventListener('click', function () {
+        var show = !el.classList.contains('revealed');
+        document.querySelectorAll('.tree-node.card.revealed').forEach(function (c) {
+          c.classList.remove('revealed');
+        });
+        if (show) el.classList.add('revealed');
+      });
     }
     return el;
   }
