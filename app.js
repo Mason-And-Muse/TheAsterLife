@@ -104,7 +104,7 @@
     var b = document.createElement('button');
     b.type = 'button';
     b.className = 'tree-node root';
-    b.textContent = 'Choose your own adventure';
+    b.textContent = 'Choose Your Own Adventure';
     b.addEventListener('click', function () {
       rootOpen = !rootOpen;
       trail = [];
