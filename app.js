@@ -1,15 +1,16 @@
 /* ============================================================
-   The Aster Life — app logic
+   The Aster Life - app logic
 
    An ADDITIVE decision tree. Nothing is ever cleared:
    - The "Choose your own adventure" button is the root node.
    - Tapping a node retracts its unpicked siblings INTO the parent and draws
      new lines OUT to its children; the picked path stays live as a spine.
-   - Tapping a node already in the spine un-picks it (its children retract and
-     its siblings return).
+   - Tapping the deepest picked node un-picks it (its children retract and its
+     siblings return). Tapping an earlier node in the spine instead drills to
+     it, showing its children.
    - The whole tree gently re-centers on the active path after each tap.
 
-   No breadcrumb — the live spine IS the trail. Vanilla JS, no deps.
+   No breadcrumb - the live spine IS the trail. Vanilla JS, no deps.
    ============================================================ */
 (function () {
   'use strict';

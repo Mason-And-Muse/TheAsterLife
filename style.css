@@ -110,9 +110,13 @@ h1 {
   transition: border-color 140ms var(--ease), box-shadow 140ms var(--ease),
               background 140ms var(--ease);
 }
-.tree-node.option:hover {
-  border-color: var(--accent);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.28);
+/* Only on real hover devices - otherwise the border stays "stuck" bright after
+   a tap on touch screens (which report hover: none). */
+@media (hover: hover) {
+  .tree-node.option:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.28);
+  }
 }
 .tree-node.option.selected {
   background: linear-gradient(160deg, rgba(139, 92, 246, 0.5), rgba(139, 92, 246, 0.22));
@@ -136,7 +140,9 @@ h1 {
   box-shadow: 0 6px 24px rgba(139, 92, 246, 0.35);
   transition: box-shadow 140ms var(--ease), filter 140ms var(--ease);
 }
-.tree-node.root:hover { box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5); }
+@media (hover: hover) {
+  .tree-node.root:hover { box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5); }
+}
 .tree-node.root.selected { filter: brightness(1.06); }
 
 /* ---------- Fan (a parent's children) ---------- */
