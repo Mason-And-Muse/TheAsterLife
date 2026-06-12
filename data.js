@@ -19,7 +19,7 @@
           cards: [
             { title: 'Skip Barber Racing School', desc: 'GT or formula racing school. Are you kidding me?', loc: 'CT, NJ, TX, CA, GA, FL, VA', url: 'https://www.skipbarber.com/programs/', img: 'photos/drive-fast/skip-barber.png' },
             { title: 'NASCAR Racing Experience', desc: 'Drive a NASCAR stock car solo? WTH?!', loc: 'Multiple US', url: 'https://nascarracingexperience.com/', img: 'photos/drive-fast/nascar.jpeg' },
-            { title: 'Exotics Racing', desc: 'Choose from 40+ supercars with 1-on-1 coaching. No way.' loc: 'NV', url: 'https://exoticsracing.com/las-vegas-supercar-driving-experience/', img: 'photos/drive-fast/exotics-racing.jpg' },
+            { title: 'Exotics Racing', desc: 'Choose from 40+ supercars with 1-on-1 coaching. No way.', loc: 'NV', url: 'https://exoticsracing.com/las-vegas-supercar-driving-experience/', img: 'photos/drive-fast/exotics-racing.jpg' },
             { title: 'MSF Basic RiderCourse', desc: 'Structured intro motorcycle course. Don\'t tell mom.' , loc: 'Multiple US', url: 'https://msf-usa.org/start-your-ride/basic-ridercourse', img: 'photos/drive-fast/msf.jpg' }
           ]
         },
@@ -57,7 +57,7 @@
           cards: [
             { title: 'Skirmish USA', desc: 'World\'s largest paintball park and whitewater. Battles & paddles?!', loc: 'PA', url: 'https://www.skirmish.com/', img: 'photos/shoot-shit/skirmish.jpg' },
             { title: 'Pev\'s Paintball - Airsoft', desc: 'Outdoor walk-on and private airsoft with rental gear. So relaxing.', loc: 'VA', url: 'https://www.pevs.com/airsoft-public-play', img: 'photos/shoot-shit/pev.webp' },
-            { title: 'iCOMBAT', desc: 'Tactical laser tag with realistic equipment. Now you\'re talking., loc: 'Multiple US', url: 'https://icombatwaukesha.com/', img: 'photos/shoot-shit/icombat.jpeg' }
+            { title: 'iCOMBAT', desc: 'Tactical laser tag with realistic equipment. Now you\'re talking.', loc: 'Multiple US', url: 'https://icombatwaukesha.com/', img: 'photos/shoot-shit/icombat.jpeg' }
           ]
         },
         {
